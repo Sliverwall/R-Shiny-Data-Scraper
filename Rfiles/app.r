@@ -1,22 +1,19 @@
 # app.R
-library(renv)
-renv::init()
-library("shiny")
+library(shiny)
 
 # Load modules
-source("modules/module1.R")
+source("modules/module1.r")
+
 
 # Define UI
 ui <- fluidPage(
-  module1UI("module1")
+  module1UI()
 )
 
 # Define server
 server <- function(input, output, session) {
-  module1Server("module1", data)
-  module2Server("module2", data)
+  
 }
 
 # Run the application
 shinyApp(ui, server)
-
