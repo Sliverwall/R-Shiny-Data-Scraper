@@ -1,19 +1,17 @@
-# app.R
 library(shiny)
+# Load in server and ui
+source("server/server.r")
+source("ui/ui.r")
 
-# Load modules
+# Load in modules
 source("modules/module1.r")
 
 
-# Define UI
-ui <- fluidPage(
-  module1UI()
-)
 
-# Define server
-server <- function(input, output, session) {
-  
-}
 
-# Run the application
-shinyApp(ui, server)
+shinyApp(ui = ui, server = server)
+
+
+
+
+
