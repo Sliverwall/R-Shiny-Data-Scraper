@@ -28,12 +28,11 @@ setTarget <- function(filePath, fileExtension) {
         print(proc.time() - start_time)
 
         # load listFiles
-        listFiles
+        return(listFiles)
     )
 }
 
-scrapeData <- functon(filePath, fileExtension,
-file, selectedSheet){
+scrapeData <- functon(filePath, fileExtension, selectedSheet){
 
     masterFolder <- setTarget(filePath, fileExtension)
 

@@ -1,10 +1,10 @@
 
+library(DT)
 # Define UI for scanFolder
 scanFolderUI <- function(id) {
   ns <- NS(id)
   tagList(
-    
-  
+    DTOutput(ns("scrapedDataTable"))
   )
 }
 
@@ -20,8 +20,12 @@ scanFolderServer <- function(id) {
       searchDirValue <- getReactiveValues()$searchDir
       searchWriteValue <- getReactiveValues()$searchWrite
 
-      # Rest of the server logic for checkFile module
-      # Use fileExtensionValue, sheetNameValue, searchDirValue, and searchWriteValue as needed
+      scrappedData <- scrapeData(searchDirValue, fileExtensionValue, sheetNameValue)
+
+      # output retrived df
+      output$scrapedDataTable <- renderDT({
+        datatable(scrappedData)
+      })
     }
   )
 }
