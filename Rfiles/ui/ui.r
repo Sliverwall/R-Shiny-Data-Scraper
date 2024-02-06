@@ -1,4 +1,6 @@
 
 ui <- fluidPage(
-  chartUI(id = "chart1")
+  checkVariablesUI(
+    id = "checkVariables"
+  )
 )
