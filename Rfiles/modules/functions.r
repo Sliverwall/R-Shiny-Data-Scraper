@@ -15,26 +15,27 @@ getReadXL <- function(file, sheet) {
     )
 }
 
-setTarget <- function(filePath, fileExtension) {
-    start_time <- proc.time()
-    listFiles <- list.files(
-        path = filePath,
-        pattern = fileExtension,
-        include.dirs = FALSE,
-        resursive = TRUE,
-        full.names = TRUE
+# setTarget <- function(filePath, fileExtension) {
+#     start_time <- proc.time()
+#     listFiles <- list.files(
+#         path = filePath,
+#         pattern = fileExtension,
+#         include.dirs = FALSE,
+#         resursive = TRUE,
+#         full.names = TRUE
         
-        # Show progress bar in console
-        print(proc.time() - start_time)
+#         # Show progress bar in console
+#         print(proc.time() - start_time)
 
-        # load listFiles
-        return(listFiles)
-    )
-}
+#         # load listFiles
+#         return(listFiles)
+#     )
+# }
 
-scrapeData <- functon(filePath, fileExtension, selectedSheet){
+scrapeData <- function(filePath, fileExtension, selectedSheet){
 
-    masterFolder <- setTarget(filePath, fileExtension)
+    masterFolder <- list.files(filePath,
+                                full.names = TRUE)
 
     # Loop through masterFolder to check each folder's contents
 
@@ -65,11 +66,11 @@ scrapeData <- functon(filePath, fileExtension, selectedSheet){
             )
             
             # Return dataframe of joined data
-            finalDf <<- finalDf
+            # finalDf <<- finalDf
+
+            #Test write CSV
+            return(print("hello world"))
+            write.csv(finalDf, paste0(filePath,"test.csv"),row.names=TRUE )
         }
-
-
-
-
     }
 }

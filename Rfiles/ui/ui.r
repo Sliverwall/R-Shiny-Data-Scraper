@@ -3,17 +3,22 @@ ui <- fluidPage(
 
   theme = bslib::bs_theme(bootswatch = 'flatly'),
   titlePanel("My Shiny App"),
-  checkVariablesUI(
+  checkTextVariablesUI(
     id = "searchDir", textBox = "Enter file path to search directory: "
   ),
-  checkVariablesUI(
+  checkTextVariablesUI(
     id = "writeDir", textBox = "Enter file path to write directory: "
   ),
-  checkVariablesUI(
+  checkTextVariablesUI(
     id = "sheetName", textBox = "Enter name of sheet to scan: "
   ),
-  checkVariablesUI(
-    id = "fileExtension", textBox = "Enter file's .extension to scan (e.g., xls): "
+  checkSelectVariablesUI(
+    id = "fileExtension", textBox = "Select file's .extension to scan (e.g., xls): ", 
+    selectOptions = c(".xlsm", ".xls", ".xlsx", ".csv")
+  ),
+  checkActionButtonUI(
+    id = "startSearch", textBox = "Begin Scan"
   )
+  
   
 )

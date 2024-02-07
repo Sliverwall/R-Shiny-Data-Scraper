@@ -1,17 +1,20 @@
 server <- function(input, output, session) {
-  checkVariablesServer(
+  checkTextVariablesServer(
     id = "searchDir"
   )
-  checkVariablesServer(
+  checkTextVariablesServer(
     id = "writeDir"
   )
-  checkVariablesServer(
+  checkTextVariablesServer(
     id = "writeDir"
   )
-  checkVariablesServer(
+  checkTextVariablesServer(
     id = "sheetName"
   )
-  checkVariablesServer(
+  checkSelectVariablesServer(
     id = "fileExtenstion"
+  )
+  checkActionButtonServer(
+    id = "startSearch"
   )
 }

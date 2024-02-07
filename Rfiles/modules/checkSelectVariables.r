@@ -1,20 +1,19 @@
-library(shiny)
 
-
-checkVariablesUI <- function(id,textBox) {
+checkSelectVariablesUI <- function(id,textBox, selectOptions) {
   # Create unique variable name
   ns <- NS(id)
     tagList(
     # output text
-    textInput(ns("textInput"), label = textBox)
+    selectInput(ns("selectInput"), label = textBox,
+    choices = selectOptions)
     )
   
 }
 
 
-# checkVariablesServer.R
+# checkSelectVariablesServer.R
 
-checkVariablesServer <- function(id) {
+checkSelectVariablesServer <- function(id) {
   moduleServer(
     id = id,
     module = function(input, output, session) {
@@ -24,8 +23,6 @@ checkVariablesServer <- function(id) {
       observeEvent(input$id, {
         input$id
       })
-      # Expose reactive values for use in other modules
-      reactiveValuesStore
     }
   )
 }
