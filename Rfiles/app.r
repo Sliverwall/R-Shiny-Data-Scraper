@@ -16,4 +16,5 @@ source("ui/ui.r")
 
 shinyApp(ui = ui, server = server)
 
+# shiny::runApp("/home/sliverwall/Desktop/Rlang/R-Shiny-Data-Scraper/Rfiles/app.r")
 

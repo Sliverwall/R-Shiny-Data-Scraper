@@ -2,7 +2,9 @@
 ui <- fluidPage(
 
   theme = bslib::bs_theme(bootswatch = 'flatly'),
-  titlePanel("My Shiny App"),
+  tabsetPanel(
+  tabPanel("Config Page", 
+
   checkTextVariablesUI(
     id = "searchDir", textBox = "Enter file path to search directory: "
   ),
@@ -19,6 +21,7 @@ ui <- fluidPage(
   checkActionButtonUI(
     id = "startSearch", textBox = "Begin Scan"
   )
+  ) # tabPanel end
+  )  #tabsetPanel end
   
-  
-)
+) # fluidPage end
