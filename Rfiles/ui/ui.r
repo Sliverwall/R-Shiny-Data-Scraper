@@ -5,22 +5,31 @@ ui <- fluidPage(
   tabsetPanel(
   tabPanel("Config Page", 
 
+  sidebarLayout(
+  sidebarPanel(
   checkTextVariablesUI(
-    id = "searchDir", textBox = "Enter file path to search directory: "
-  ),
+    id = "searchDir", textBox = "Enter file path to search directory: "),
+
   checkTextVariablesUI(
-    id = "writeDir", textBox = "Enter file path to write directory: "
-  ),
+    id = "writeDir", textBox = "Enter file path to write directory: "),
+
   checkTextVariablesUI(
-    id = "sheetName", textBox = "Enter name of sheet to scan: "
-  ),
+    id = "sheetName", textBox = "Enter name of sheet to scan: "),
+
   checkSelectVariablesUI(
     id = "fileExtension", textBox = "Select file's .extension to scan (e.g., xls): ", 
-    selectOptions = c(".xlsm", ".xls", ".xlsx", ".csv")
-  ),
+    selectOptions = c(".xlsm", ".xls", ".xlsx", ".csv")),
+
   checkActionButtonUI(
-    id = "startSearch", textBox = "Begin Scan"
+    id = "startSearch", textBox = "Begin Scan"),
+
+  ), # end of sidebarPanel
+  mainPanel(
+  displayDTUI(
+    id = "displayScanData"
   )
+  )
+    ) # end of sidebarLayout,
   ) # tabPanel end
   )  #tabsetPanel end
   

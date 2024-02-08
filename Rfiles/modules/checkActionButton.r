@@ -17,7 +17,7 @@ checkActionButtonServer <- function(id) {
     id = id,
     module = function(input, output, session) {
 
-        data <- shiny::eventReactive(
+        dataOutput <- shiny::eventReactive(
             input$id, {
                 scrapeData("/home/sliverwall/Desktop/testCompileFolder/master/",
                 "\\.(xlsx)$",
@@ -25,9 +25,7 @@ checkActionButtonServer <- function(id) {
                 
             }
         )
-        observe({
-        print(data())
-      })
+        dataOutput
     }
   )
 }

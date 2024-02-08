@@ -14,7 +14,15 @@ server <- function(input, output, session) {
   checkSelectVariablesServer(
     id = "fileExtenstion"
   )
-  checkActionButtonServer(
+  
+  finalDf <- observe({
+    checkActionButtonServer(
     id = "startSearch"
+ )
+  })
+
+  displayDTServer(
+    id = "displayScanData",
+    dataOutput = finalDF
   )
 }
