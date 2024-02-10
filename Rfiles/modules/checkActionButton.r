@@ -16,16 +16,24 @@ checkActionButtonServer <- function(id) {
   moduleServer(
     id = id,
     module = function(input, output, session) {
+        # Sample dataframe creation
 
-        dataOutput <- shiny::eventReactive(
-            input$id, {
-                scrapeData("/home/sliverwall/Desktop/testCompileFolder/master/",
-                "\\.(xlsx)$",
-                "Sheet1")
-                
-            }
-        )
-        dataOutput
+         observeEvent(input$actionButtonInput, {
+  
+  tryCatch({
+  combined_df <- scrape_data(
+        "/home/sliverwall/Desktop/testCompileFolder/master/",
+        "/home/sliverwall/Desktop/testCompileFolder/master/",
+        "Sheet1",
+        "A1:B50",
+        "\\.csv()$",
+        TRUE
+      )
+    write.csv(combined_df,
+                 "/home/sliverwall/Desktop/testCompileFolder/test2.csv",
+                 row.names = FALSE)
+         })
+         
+})
     }
-  )
-}
+  )}

@@ -1,19 +1,3 @@
-library(readxl)
-
-
-getReadXL <- function(file, sheet) {
-    tryCatch(
-        readxl::read_excel(file,sheet,col_types = "text", col_names = TRUE),
-        error = function(e) {
-            message(
-                paste0(
-                    "Error at file ", file, ":", e
-                )
-            )
-            data.frame()
-        }
-    )
-}
 
 # setTarget <- function(filePath, fileExtension) {
 #     start_time <- proc.time()
@@ -32,45 +16,110 @@ getReadXL <- function(file, sheet) {
 #     )
 # }
 
-scrapeData <- function(filePath, fileExtension, selectedSheet){
+#---------------------IMPORTS-----------------
 
-    masterFolder <- list.files(filePath,
-                                full.names = TRUE)
+library(shiny)
+library(readxl)
+library(dplyr)
 
-    # Loop through masterFolder to check each folder's contents
+#-----------------FUNCTIONS-------------
+scrape_data <- function(SEARCH_DIR,
+                        WRITE_DIR,
+                        SELECTED_SHEET,
+                        READ_RANGE,
+                        FILE_TYPE,
+                        COMPLETE_CASES){
+  
 
-    for (folder in masterFolder){
 
-        fileList <- list.files(
-            folder,
-            pattern = fileExtension,
-            full.names = TRUE
-        )
 
-        # Loop through all selected files
+    # Set file type lists
 
-        for (file in fileList){
-            data <- getReadXL(file, selectedSheet)
-                
-            # Skip if sheet is blank
-            if(!nrow(data)){
-                next
-            }
+    excelList <- list("\\.xls()$", "\\.xlsx()$", "\\.xlsm()$")
 
-            # Bind data together if set already exists
-            finalDf <- tryCatch(
-                rbind(finalDf, data),
-                error = function(e){
-                    finalDf <- data
-                }
-            )
+    # Collect start time
+    startTime <- proc.time()
+  #Define main folder
+
+  mainFolder <- list.files(SEARCH_DIR,
+                            full.names = TRUE,
+                            recursive = FALSE)
+  
+  scannedFile_done <- 0
+  
+  #Loop through each folder in the mainFolder
+  for (folder in mainFolder){
+
+    #read folder date then skip if older than or younger than date limit
+    if (is.null(folder)){
+      next
+    } else {
+      
+      #list all scannedFile sheets
+      scannedFile_list <- list.files(folder,
+                               pattern = FILE_TYPE,
+                               full.names = TRUE)
+      
+      #loop for all scannedFile sheets
+      for (scannedFile in scannedFile_list){
+        #tryCatch() to handle errors if scannedFile sheet does not have specified selected_sheet
+        
+        data <- tryCatch({
+          
+          #check date conditions on file
+          
+          if(!is.null(scannedFile)){
             
-            # Return dataframe of joined data
-            # finalDf <<- finalDf
-
-            #Test write CSV
-            return(print("hello world"))
-            write.csv(finalDf, paste0(filePath,"test.csv"),row.names=TRUE )
+            #read in scannedFile data within specified ranges and conditions
+            
+            if(FILE_TYPE %in% excelList){
+            df <- read_excel(scannedFile,
+                             sheet = SELECTED_SHEET,
+                             range = READ_RANGE,
+                             col_names = TRUE)
+            } else {
+                df <- read.csv(scannedFile)
+            }
+            
+            #store file path for double checking later on 
+            df$file_path = scannedFile
+            
+            if (COMPLETE_CASES == TRUE){
+              df <- df[complete.cases(df),]
+            } else {
+              df <- df
+            }
+          } else {
+            next
+          }
+            
+            ### compose error message for debugging
+        }, error = function(e){
+            message(paste0("Error reading", scannedFile, ":", e))
+          
+          #skip 
+          next
+          
+          }
+        )
+        
+        # if empty, skip
+        if (!nrow(data)){
+          next
         }
+        #count scannedFile_done to check how many have been collected
+        if (scannedFile_done > 0){
+          combined_df <- rbind(combined_df, data)
+        } else{
+          combined_df <- data
+        }
+          scannedFile_done <- scannedFile_done + 1
+        
+        
+      }
     }
+  }
+    # Print eslapsed time
+    print(proc.time() - startTime)
+   combined_df <<- combined_df
 }

@@ -28,7 +28,7 @@ ui <- fluidPage(
   displayDTUI(
     id = "displayScanData"
   )
-  )
+  ) # end of main panel
     ) # end of sidebarLayout,
   ) # tabPanel end
   )  #tabsetPanel end

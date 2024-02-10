@@ -1,28 +1,18 @@
 server <- function(input, output, session) {
-  checkTextVariablesServer(
+  SEARCH_DIR <- checkTextVariablesServer(
     id = "searchDir"
   )
-  checkTextVariablesServer(
+  WRITE_DIR <- checkTextVariablesServer(
     id = "writeDir"
   )
-  checkTextVariablesServer(
-    id = "writeDir"
-  )
-  checkTextVariablesServer(
+  SELECTED_SHEET <- checkTextVariablesServer(
     id = "sheetName"
   )
-  checkSelectVariablesServer(
+  FILE_TYPE <- checkSelectVariablesServer(
     id = "fileExtenstion"
   )
-  
-  finalDf <- observe({
     checkActionButtonServer(
     id = "startSearch"
  )
-  })
 
-  displayDTServer(
-    id = "displayScanData",
-    dataOutput = finalDF
-  )
 }

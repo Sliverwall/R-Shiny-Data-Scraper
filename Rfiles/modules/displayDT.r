@@ -1,5 +1,5 @@
-
 library(DT)
+
 # Define UI for displayDT
 displayDTUI <- function(id) {
   ns <- NS(id)
@@ -14,10 +14,17 @@ displayDTServer <- function(id, dataOutput) {
     id = id,
     module = function(input, output, session) {
 
-      # output retrived df
+      dataOutput <- observe(dataOutput)
+      # output retrieved df
+      if (!is.null(dataOutput)){
       output$scrapedDataTable <- renderDT({
         datatable(dataOutput)
       })
+      } else {
+        output$scrapedDataTable <- renderDT({
+        datatable(data.frame())
+      })
+      }
     }
   )
 }
