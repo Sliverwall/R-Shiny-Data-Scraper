@@ -47,6 +47,8 @@ selectedWritePath, selectedOutputFileName, selectedOutputFileType) {
           print(FILE_TYPE)
           print(selectedSheet)
           print(selectedRange)
+          print(paste(selectedWritePath,selectedOutputFileName, selectedOutputFileType))
+          print(paste0("search file type: ", selectedFileExtenstion," write file type: ", selectedOutputFileType))
         })
       })
     }

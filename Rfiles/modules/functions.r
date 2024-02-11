@@ -70,7 +70,7 @@ scrapeData <- function(SEARCH_DIR,
           
           if(!is.null(scannedFile)){
             
-            #read in scannedFile data within specified ranges and conditions
+            # read in scannedFile data within specified ranges and conditions
             
             if (FILE_TYPE %in% excelList) {
             df <- read_excel(scannedFile,
