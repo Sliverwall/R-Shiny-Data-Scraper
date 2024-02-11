@@ -25,7 +25,7 @@ ui <- fluidPage(
 
   checkTextVariablesUI(id = "writeDir", textBox = "Enter file path to write directory: "),  
 
-  checkActionButtonUI(id = "startSearch", textBox = "Begin Scan"),
+  scanFoldersButtonUI(id = "startSearch", textBox = "Begin Scan"),
 
 
   ), # end of sidebarPanel

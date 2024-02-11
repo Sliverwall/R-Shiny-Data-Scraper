@@ -8,9 +8,9 @@ server <- function(input, output, session) {
   selectedRangeName <- callModule(checkTextVariablesServer, "rangeName")
   selectedWritePath <- callModule(checkTextVariablesServer, "writeDir")
   selectedOutputFileName <- callModule(checkTextVariablesServer, "outputFileName")
-  selectedOutputFileType <- callModule(checkSelectVariablesServer, "outputFileExtension")
+  selectedOutputFileType <- callModule(checkSelectVariablesServer, "outputFileExtenstion")
 
-  checkActionButtonServer(
+  scanFoldersButtonServer(
     id = "startSearch",
     selectedSearchFilePath(),
     selectedFileExtension(),

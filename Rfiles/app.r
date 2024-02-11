@@ -7,7 +7,7 @@ library(readxl)
 source("modules/functions.r")
 source("modules/checkTextVariables.r")
 source("modules/checkSelectVariables.r")
-source("modules/checkActionButton.r")
+source("modules/scanFoldersButton.r")
 source("modules/displayDT.r")
 
 # Load in server and ui

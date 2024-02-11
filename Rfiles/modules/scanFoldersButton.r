@@ -1,6 +1,6 @@
 
 
-checkActionButtonUI <- function(id,textBox) {
+scanFoldersButtonUI <- function(id,textBox) {
   # Create unique variable name
   ns <- NS(id)
     tagList(
@@ -12,9 +12,9 @@ checkActionButtonUI <- function(id,textBox) {
 }
 
 
-# checkActionButtonServer.R
+# scanFoldersButtonServer.R
 
-checkActionButtonServer <- function(id, selectedSearchFilePath, selectedFileExtenstion, selectedSheet, selectedRange,
+scanFoldersButtonServer <- function(id, selectedSearchFilePath, selectedFileExtenstion, selectedSheet, selectedRange,
 selectedWritePath, selectedOutputFileName, selectedOutputFileType) {
   moduleServer(
     id = id,
@@ -23,7 +23,8 @@ selectedWritePath, selectedOutputFileName, selectedOutputFileType) {
       
       observeEvent(input$actionButtonInput, {
         # Sample dataframe creation
-        print(selectedFileExtenstion)
+        print(paste(selectedWritePath,selectedOutputFileName, selectedOutputFileType))
+        print(paste0("search file type: ", selectedFileExtenstion," write file type: ", selectedOutputFileType))
         FILE_TYPE <- paste0("\\",selectedFileExtenstion, "()$")
         
         tryCatch({

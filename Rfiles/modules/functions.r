@@ -77,7 +77,7 @@ scrapeData <- function(SEARCH_DIR,
                             sheet = SELECTED_SHEET,
                             range = READ_RANGE,
                             col_names = TRUE)
-            } else if (grepl("\\.csv$", FILE_TYPE)) {
+            } else if (FILE_TYPE == "\\.csv()") {
             df <- read.csv(scannedFile)
             } else {
             df <- read.table(scannedFile, header = TRUE, sep = "\t")
