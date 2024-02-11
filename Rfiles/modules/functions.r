@@ -23,8 +23,7 @@ library(readxl)
 library(dplyr)
 
 #-----------------FUNCTIONS-------------
-scrape_data <- function(SEARCH_DIR,
-                        WRITE_DIR,
+scrapeData <- function(SEARCH_DIR,
                         SELECTED_SHEET,
                         READ_RANGE,
                         FILE_TYPE,
@@ -36,6 +35,7 @@ scrape_data <- function(SEARCH_DIR,
     # Set file type lists
 
     excelList <- list("\\.xls()$", "\\.xlsx()$", "\\.xlsm()$")
+
 
     # Collect start time
     startTime <- proc.time()
@@ -72,14 +72,17 @@ scrape_data <- function(SEARCH_DIR,
             
             #read in scannedFile data within specified ranges and conditions
             
-            if(FILE_TYPE %in% excelList){
+            if (FILE_TYPE %in% excelList) {
             df <- read_excel(scannedFile,
-                             sheet = SELECTED_SHEET,
-                             range = READ_RANGE,
-                             col_names = TRUE)
+                            sheet = SELECTED_SHEET,
+                            range = READ_RANGE,
+                            col_names = TRUE)
+            } else if (grepl("\\.csv$", FILE_TYPE)) {
+            df <- read.csv(scannedFile)
             } else {
-                df <- read.csv(scannedFile)
+            df <- read.table(scannedFile, header = TRUE, sep = "\t")
             }
+
             
             #store file path for double checking later on 
             df$file_path = scannedFile

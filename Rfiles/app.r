@@ -6,8 +6,8 @@ library(readxl)
 # Load in modules
 source("modules/functions.r")
 source("modules/checkTextVariables.r")
-source("modules/checkActionButton.r")
 source("modules/checkSelectVariables.r")
+source("modules/checkActionButton.r")
 source("modules/displayDT.r")
 
 # Load in server and ui

@@ -1,3 +1,5 @@
+
+
 checkActionButtonUI <- function(id,textBox) {
   # Create unique variable name
   ns <- NS(id)
@@ -12,28 +14,41 @@ checkActionButtonUI <- function(id,textBox) {
 
 # checkActionButtonServer.R
 
-checkActionButtonServer <- function(id) {
+checkActionButtonServer <- function(id, selectedSearchFilePath, selectedFileExtenstion, selectedSheet, selectedRange,
+selectedWritePath, selectedOutputFileName, selectedOutputFileType) {
   moduleServer(
     id = id,
     module = function(input, output, session) {
+      # Your existing server logic goes here
+      
+      observeEvent(input$actionButtonInput, {
         # Sample dataframe creation
-
-         observeEvent(input$actionButtonInput, {
-  
-  tryCatch({
-  combined_df <- scrape_data(
-        "/home/sliverwall/Desktop/testCompileFolder/master/",
-        "/home/sliverwall/Desktop/testCompileFolder/master/",
-        "Sheet1",
-        "A1:B50",
-        "\\.csv()$",
-        TRUE
-      )
-    write.csv(combined_df,
-                 "/home/sliverwall/Desktop/testCompileFolder/test2.csv",
-                 row.names = FALSE)
-         })
-         
-})
+        print(selectedFileExtenstion)
+        FILE_TYPE <- paste0("\\",selectedFileExtenstion, "()$")
+        
+        tryCatch({
+          combined_df <- scrapeData(
+            selectedSearchFilePath,
+            selectedSheet,
+            selectedRange,
+            FILE_TYPE,
+            TRUE
+          )
+          
+          # Adjust the file path and name based on your needs
+          write.csv(combined_df,
+                    paste0(selectedWritePath,selectedOutputFileName, selectedOutputFileType),
+                    row.names = FALSE)
+          
+        }, error = function(e) {
+          # Handle errors if necessary
+          print(paste("Error:", e))
+          print(FILE_TYPE)
+          print(selectedSheet)
+          print(selectedRange)
+        })
+      })
     }
-  )}
+  )
+}
+

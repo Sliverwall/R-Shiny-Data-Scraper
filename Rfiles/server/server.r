@@ -1,18 +1,24 @@
 server <- function(input, output, session) {
-  SEARCH_DIR <- checkTextVariablesServer(
-    id = "searchDir"
-  )
-  WRITE_DIR <- checkTextVariablesServer(
-    id = "writeDir"
-  )
-  SELECTED_SHEET <- checkTextVariablesServer(
-    id = "sheetName"
-  )
-  FILE_TYPE <- checkSelectVariablesServer(
-    id = "fileExtenstion"
-  )
-    checkActionButtonServer(
-    id = "startSearch"
- )
 
+  # Get reactive values from userInput
+
+  selectedSearchFilePath <- callModule(checkTextVariablesServer, "searchDir")
+  selectedFileExtension <- callModule(checkSelectVariablesServer, "fileExtension")
+  selectedSheetName <- callModule(checkTextVariablesServer, "sheetName")
+  selectedRangeName <- callModule(checkTextVariablesServer, "rangeName")
+  selectedWritePath <- callModule(checkTextVariablesServer, "writeDir")
+  selectedOutputFileName <- callModule(checkTextVariablesServer, "outputFileName")
+  selectedOutputFileType <- callModule(checkSelectVariablesServer, "outputFileExtension")
+
+  checkActionButtonServer(
+    id = "startSearch",
+    selectedSearchFilePath(),
+    selectedFileExtension(),
+    selectedSheetName(),
+    selectedRangeName(),
+    selectedWritePath(),
+    selectedOutputFileName(),
+    selectedOutputFileType()
+
+  )
 }

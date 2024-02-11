@@ -13,16 +13,10 @@ checkSelectVariablesUI <- function(id,textBox, selectOptions) {
 
 # checkSelectVariablesServer.R
 
-checkSelectVariablesServer <- function(id) {
-  moduleServer(
-    id = id,
-    module = function(input, output, session) {
-
-
-      # Update reactive values based on user input
-      observeEvent(input$id, {
-        input$id
-      })
-    }
-  )
+checkSelectVariablesServer <- function(input, output, session) {
+  reactive({
+    selectedValue <- input$selectInput
+    # Perform any processing or actions with the selected value here if needed
+    return(selectedValue)
+  })
 }
